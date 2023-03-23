@@ -1,1 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div class="container mt-5 gallery">
+      <div class="row">
+        <div class="col-3">
+          <figure class="figure rounded" data-img="images/1.png">
+            <img
+              src="images/s1.png"
+              class="figure-img img-fluid rounded"
+              alt="..."
+            />
+          </figure>
+        </div>
+        <div class="col-3">
+          <figure class="figure rounded" data-img="images/2.png">
+            <img
+              src="images/s2.png"
+              class="figure-img img-fluid rounded"
+              alt="..."
+            />
+          </figure>
+        </div>
+        <div class="col-3">
+          <figure class="figure rounded" data-img="images/3.png">
+            <img
+              src="images/s3.png"
+              class="figure-img img-fluid rounded"
+              alt="..."
+            />
+          </figure>
+        </div>
+        <div class="col-3">
+          <figure class="figure rounded" data-img="images/4.png">
+            <img
+              src="images/s4.png"
+              class="figure-img img-fluid rounded"
+              alt="..."
+            />
+          </figure>
+        </div>
+        <div class="col-3">
+          <figure class="figure rounded" data-img="images/5.png">
+            <img
+              src="images/s5.png"
+              class="figure-img img-fluid rounded"
+              alt="..."
+            />
+          </figure>
+        </div>
+        <div class="col-3">
+          <figure class="figure rounded" data-img="images/6.png">
+            <img
+              src="images/s6.png"
+              class="figure-img img-fluid rounded"
+              alt="..."
+            />
+          </figure>
+        </div>
+        <div class="col-3">
+          <figure class="figure rounded" data-img="images/7.png">
+            <img
+              src="images/s7.png"
+              class="figure-img img-fluid rounded"
+              alt="..."
+            />
+          </figure>
+        </div>
+        <div class="col-3">
+          <figure class="figure rounded" data-img="images/8.png">
+            <img
+              src="images/s8.png"
+              class="figure-img img-fluid rounded"
+              alt="..."
+            />
+          </figure>
+        </div>
+        <div class="col-3">
+          <figure class="figure rounded" data-img="images/9.png">
+            <img
+              src="images/s9.png"
+              class="figure-img img-fluid rounded"
+              alt="..."
+            />
+          </figure>
+        </div>
+        <div class="col-3">
+          <figure class="figure rounded" data-img="images/10.png">
+            <img
+              src="images/s10.png"
+              class="figure-img img-fluid rounded"
+              alt="..."
+            />
+          </figure>
+        </div>
+        <div class="col-3">
+          <figure class="figure rounded" data-img="images/11.png">
+            <img
+              src="images/s11.png"
+              class="figure-img img-fluid rounded"
+              alt="..."
+            />
+          </figure>
+        </div>
+        <div class="col-3">
+          <figure class="figure rounded" data-img="images/12.png">
+            <img
+              src="images/s12.png"
+              class="figure-img img-fluid rounded"
+              alt="..."
+            />
+          </figure>
+        </div>
+      </div>
+    </div>
+    <div class="mask">
+      <span class="close">
+        <i class="bi bi-x-circle"></i>
+      </span>
+      <img src="" alt="" />
+      <div class="arrow arrow-prev">
+        <i class="bi bi-arrow-left-short"></i>
+      </div>
+      <div class="arrow arrow-next">
+        <i class="bi bi-arrow-right-short"></i>
+      </div>
+    </div>
+    <script>
+      var aElementImg = document.querySelectorAll(".gallery [data-img]");
+      var oMask = document.querySelector(".mask");
+      var oClose = document.querySelector(".close");
+      var oMaskImg = document.querySelector(".mask img");
+      var oArrowPrev = document.querySelector(".mask .arrow-prev");
+      var oArrowNext = document.querySelector(".mask .arrow-next");
+      var imgList = [];
+      var index = 0;
+      for (var i = 0; i < aElementImg.length; i++) {
+        imgList.push(aElementImg[i].dataset["img"]);
+        aElementImg[i].onclick = function () {
+          oMask.style.display = "flex";
+          document.body.style.overflow = "hidden";
+          oMaskImg.src = this.dataset["img"];
+          oMaskImg.onload = function () {
+            if (oMaskImg.width < oMaskImg.height) {
+              oMaskImg.style.height = "100%";
+              oMaskImg.style.width = "auto";
+            }
+            if (oMaskImg.width > oMaskImg.height) {
+              oMaskImg.style.height = "auto";
+              oMaskImg.style.width = "80%";
+            }
+          };
+          index = imgList.findIndex((url) => url == this.dataset["img"]);
+        };
+      }
+      oClose.onclick = function () {
+        oMask.style.display = "none";
+        document.body.style.overflow = "auto";
+        oMaskImg.src = "";
+      };
 
+      oArrowPrev.onclick = function () {
+        index--;
+        if (index < 0) {
+          index = aElementImg.length - 1;
+        }
+        oMaskImg.src = imgList[index];
+        oMaskImg.onload = function () {
+          if (oMaskImg.width < oMaskImg.height) {
+            oMaskImg.style.height = "100%";
+            oMaskImg.style.width = "auto";
+          }
+          if (oMaskImg.width > oMaskImg.height) {
+            oMaskImg.style.height = "auto";
+            oMaskImg.style.width = "80%";
+          }
+        };
+      };
+      oArrowNext.onclick = function () {
+        index++;
+        if (index >= aElementImg.length) {
+          index = 0;
+        }
+        oMaskImg.src = imgList[index];
+
+        oMaskImg.onload = function () {
+          if (oMaskImg.width < oMaskImg.height) {
+            oMaskImg.style.height = "100%";
+            oMaskImg.style.width = "auto";
+          }
+          if (oMaskImg.width > oMaskImg.height) {
+            oMaskImg.style.height = "auto";
+            oMaskImg.style.width = "80%";
+          }
+        };
+      };
+    </script>
+  </body>
+</html>
